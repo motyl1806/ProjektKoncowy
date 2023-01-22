@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/projects")
+
 public class ProjectController {
 
     private final ProjectRepository projectRepository;
@@ -45,6 +46,16 @@ public class ProjectController {
 
         return modelAndView;
 
+    }
+    @GetMapping("/remove/{id}")
+    ModelAndView remove(@PathVariable Long id) {
+        ModelAndView modelAndView = new ModelAndView("projects/remove");
+
+        Project project = projectRepository.findById(id).orElse(null);
+
+        modelAndView.addObject("project",project);
+
+        return modelAndView;
     }
     @PostMapping("/save")
     String save(@ModelAttribute Project project) {
